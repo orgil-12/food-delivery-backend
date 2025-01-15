@@ -15,7 +15,8 @@ FoodRouter.get("/:id", async (req: Request, res: Response) => {
 });
 
 FoodRouter.post("/", async (req: Request, res: Response) => {
-  await FoodModel.create({ categoryName: "Pasta" });
+  const {body} = req;
+  await FoodModel.create({...body});
   const food = await FoodModel.find();
 
   res.send(food);
