@@ -28,7 +28,7 @@ FoodRouter.put("/:id", async (req: Request, res: Response) => {
   const item = await FoodModel.find({ _id: foodId });
   const updatedItem = await FoodModel.findByIdAndUpdate(
     foodId,
-    { ...item, ...body },
+    {  ...body },
     { new: true }
   );
 

@@ -14,7 +14,7 @@ FoodCategoryRouter.get("/:id", async (req: Request, res: Response) => {
   res.send(item);
 });
 
-FoodCategoryRouter.post("", async (req: Request, res: Response) => {
+FoodCategoryRouter.post("/", async (req: Request, res: Response) => {
   const {body} = req;
   await FoodCategoryModel.create({ ...body });
   const foodCategories = await FoodCategoryModel.find();
@@ -23,8 +23,7 @@ FoodCategoryRouter.post("", async (req: Request, res: Response) => {
 });
 
 FoodCategoryRouter.put("/:id", async (req: Request, res: Response) => {
-  const { params, body } = req;
-  //   console.log(body)
+  const { params, body } = req; 
   const foodCategoryId = params.id;
   const item = await FoodCategoryModel.find({ _id: foodCategoryId });
   const updatedItem = await FoodCategoryModel.findByIdAndUpdate(
