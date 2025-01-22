@@ -4,8 +4,10 @@ import { FoodModel } from "../models/food";
 export const FoodRouter = Router();
 
 FoodRouter.get("/", async (req: Request, res: Response) => {
-  const food = await FoodModel.find();
-  res.send(food);
+  console.log(req.query.category);
+  const filter = req.query.category ? { category: req.query.category } : {};
+  const foods = await FoodModel.find(filter);
+  res.send(foods);
 });
 
 FoodRouter.get("/:id", async (req: Request, res: Response) => {
@@ -15,8 +17,8 @@ FoodRouter.get("/:id", async (req: Request, res: Response) => {
 });
 
 FoodRouter.post("/", async (req: Request, res: Response) => {
-  const {body} = req;
-  await FoodModel.create({...body});
+  const { body } = req;
+  await FoodModel.create({ ...body });
   const food = await FoodModel.find();
 
   res.send(food);
@@ -28,7 +30,7 @@ FoodRouter.put("/:id", async (req: Request, res: Response) => {
   const item = await FoodModel.find({ _id: foodId });
   const updatedItem = await FoodModel.findByIdAndUpdate(
     foodId,
-    {  ...body },
+    { ...body },
     { new: true }
   );
 
